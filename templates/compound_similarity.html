@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+        <div class="row search_bar">
+            <div class="center-block" style="width:40%">
+                <h1 class="center-block">Calculate similarity between two compounds</h1>
+                {{ wtf.quick_form(form) }}
+            </div>
+        </div>
+        <br />
+
+        {% for error in form.first_compound.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+
+        {% for error in form.second_compound.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+
+        {% if time_taken %}
+        <div class="result">
+            <div class="center-block" style="width:40%">
+                <h3 class="center-block">The distance between {{ form.first_compound.data }} and
+                    {{ form.second_compound.data }} is {{ distance }}</h3>
+            </div>
+        </div>
+        {% endif %}
+
+{% endblock %}

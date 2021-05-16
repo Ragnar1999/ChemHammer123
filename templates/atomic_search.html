@@ -1,0 +1,50 @@
+  {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+        <div class="row search_bar">
+            <div class="center-block" style="width:40%">
+                <h1 class="center-block">Search a Compound on Atomic Similarity</h1>
+                {{ wtf.quick_form(form) }}
+            </div>
+        </div>
+
+        {% for error in form.search_bar.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+
+        {% if time_taken %}
+        <div class="row results_table center-block" style="width:70%">
+            <p>The top {{ num_results }} results of {{ total_count }} compounds found in {{ time_taken }} seconds</p>
+                <table class ="table table-striped center-block table-hover" id="dt_atomic" style="width:100%">
+                    <tr>
+                        <th class="th-sm">Score</th>
+                        <th class="th-sm">Formula</th>
+                        <th class="th-sm">ICSD Code</th>
+                        <th class="th-sm">Publication Date</th>
+                        <th class="th-sm">Title</th>
+                        <th class="th-sm">Journal Name</th>
+                        <th class="th-sm">Author</th>
+                    </tr>
+            
+                    {% for score in scores %}
+                        <tr>
+                            <th>{{ score.Score }}</th>
+                            <th>{{ score.Formula }}</th>
+                            <th>{{ score.Code }}</th>
+                            <th>{{ score.Date }}</th>
+                            <th>{{ score.Title }}</th>
+                            <th>{{ score.Journal }}</th>
+                            <th>{{ score.Author }}</th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>  
+        </div>
+        {% endif %}
+        
+
+        
+    </form>
+{% endblock %}
